@@ -2,29 +2,36 @@ import java.util.ArrayList;
 
 public class ParkingSlot {
 
-    private static int availableParkingSlot = 2;
-    private static final int totalParkingSlots = 2;
-    private static ArrayList<Car> parkedcar = new ArrayList<>();
+    private static int availableParkingSlot;
+    private static int totalParkingSlots;
+    private static final ArrayList<Car> parkedCars = new ArrayList<>();
 
-    public boolean isAvailableParkingSlot() {
+    public ParkingSlot(int parkingSlots) {
 
-        if (availableParkingSlot > 0) {
-
-            return true;
-        }
-        return false;
-
+        totalParkingSlots = parkingSlots;
+        availableParkingSlot = totalParkingSlots;
 
     }
 
-    public boolean park(Car car) {
+    public boolean isAvailableParkingSlot() {
+        return availableParkingSlot > 0;
 
-        if (isAvailableParkingSlot()) {
+    }
+
+    public boolean park(Car car) throws Exception {
+
+        if (isAvailableParkingSlot() && !parkedCars.contains(car)) {
             availableParkingSlot--;
-            parkedcar.add(car);
+            parkedCars.add(car);
             return true;
         } else {
-            return false;
+
+            if (parkedCars.contains(car)) {
+                throw new Exception("Car already parked");
+
+            } else
+
+                throw new Exception("Slot Full");
         }
 
     }
