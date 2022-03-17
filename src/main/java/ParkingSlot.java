@@ -5,40 +5,30 @@ public class ParkingSlot {
     public final static String ERROR_SLOT_FULL = "Slot Full";
     public final static String ERROR_CAR_ALREADY_PARKED = "Car already parked";
 
-
-    private static int availableParkingSlot;
-    private static int totalParkingSlots;
-    private static final ArrayList<Car> parkedCars = new ArrayList<>();
+    private int totalParkingSlots;
+    private final ArrayList<Car> parkedCars = new ArrayList<>(totalParkingSlots);
 
     public ParkingSlot(int parkingSlots) {
-
         totalParkingSlots = parkingSlots;
-        availableParkingSlot = totalParkingSlots;
 
     }
 
-    public boolean isAvailableParkingSlot() {
-        return availableParkingSlot > 0;
+    public int availableParkingSlot() {
+        return totalParkingSlots - parkedCars.size();
+    }
+
+    public boolean isCarParked(Car car) {
+        return parkedCars.contains(car);
 
     }
 
-
-    public boolean park(Car car) throws CarAlreadyParkedException, ParkingSlotFullException {
-
-        if (isAvailableParkingSlot() && !parkedCars.contains(car)) {
-            availableParkingSlot--;
+    public void park(Car car) throws CarAlreadyParkedException, ParkingSlotFullException {
+        if (isCarParked(car))
+            throw new CarAlreadyParkedException(ERROR_CAR_ALREADY_PARKED);
+        if (availableParkingSlot() > 0) {
             parkedCars.add(car);
-            return true;
-
-        } else {
-            if (parkedCars.contains(car)) {
-
-                throw new CarAlreadyParkedException(ERROR_CAR_ALREADY_PARKED);
-
-            } else
-
-                throw new ParkingSlotFullException(ERROR_SLOT_FULL);
-        }
+        } else
+            throw new ParkingSlotFullException(ERROR_SLOT_FULL);
 
     }
 }

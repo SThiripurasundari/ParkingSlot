@@ -9,19 +9,25 @@ public class ParkingSlotTest {
     void parkTheCar() throws Exception {
 
         ParkingSlot parkingslot = new ParkingSlot(1);
+        Car car = new Car();
 
-        assertTrue(parkingslot.park(new Car()));
+        parkingslot.park(car);
+
+        assertTrue(parkingslot.isCarParked(car));
 
     }
 
     @Test
     void parkMultipleCars() throws Exception {
 
-        ParkingSlot parkingslot = new ParkingSlot(2);
+        ParkingSlot parkingslot = new ParkingSlot(3);
+        Car car1 = new Car();
+        Car car2 = new Car();
 
-        parkingslot.park(new Car());
+        parkingslot.park(car1);
+        parkingslot.park(car2);
 
-        assertTrue(parkingslot.park(new Car()));
+        assertEquals(1,parkingslot.availableParkingSlot() );
 
     }
 
