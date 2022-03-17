@@ -26,25 +26,25 @@ public class ParkingSlotTest {
     }
 
     @Test
-    void denyParkingIfNoSlotAvailable() throws Exception {
+    void denyParkingIfNoSlotAvailable() throws ParkingSlotFullException, CarAlreadyParkedException {
 
         ParkingSlot parkingslot = new ParkingSlot(1);
 
         parkingslot.park(new Car());
 
-        Throwable throwable = assertThrows(Exception.class, () -> parkingslot.park(new Car()));
-        assertEquals(ParkingSlot.ERROR_SLOT_FULL, throwable.getMessage());
+        assertThrows(ParkingSlotFullException.class, () -> parkingslot.park(new Car()));
+
     }
 
     @Test
-    void denyParkingSameCarTwice() throws Exception {
+    void denyParkingSameCarTwice() throws CarAlreadyParkedException, ParkingSlotFullException {
 
         ParkingSlot parkingslot = new ParkingSlot(2);
 
         Car car = new Car();
         parkingslot.park(car);
 
-        Throwable throwable = assertThrows(Exception.class, () -> parkingslot.park(car));
-        assertEquals(ParkingSlot.ERROR_CAR_ALREADY_PARKED, throwable.getMessage());
+        assertThrows(CarAlreadyParkedException.class, () -> parkingslot.park(car));
+
     }
 }

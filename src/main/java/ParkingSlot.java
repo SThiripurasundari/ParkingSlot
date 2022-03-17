@@ -22,7 +22,8 @@ public class ParkingSlot {
 
     }
 
-    public boolean park(Car car) throws Exception {
+
+    public boolean park(Car car) throws CarAlreadyParkedException, ParkingSlotFullException {
 
         if (isAvailableParkingSlot() && !parkedCars.contains(car)) {
             availableParkingSlot--;
@@ -32,11 +33,11 @@ public class ParkingSlot {
         } else {
             if (parkedCars.contains(car)) {
 
-                throw new Exception(ERROR_CAR_ALREADY_PARKED);
+                throw new CarAlreadyParkedException(ERROR_CAR_ALREADY_PARKED);
 
             } else
 
-                throw new Exception(ERROR_SLOT_FULL);
+                throw new ParkingSlotFullException(ERROR_SLOT_FULL);
         }
 
     }
