@@ -2,6 +2,10 @@ import java.util.ArrayList;
 
 public class ParkingSlot {
 
+    public final static String ERROR_SLOT_FULL = "Slot Full";
+    public final static String ERROR_CAR_ALREADY_PARKED = "Car already parked";
+
+
     private static int availableParkingSlot;
     private static int totalParkingSlots;
     private static final ArrayList<Car> parkedCars = new ArrayList<>();
@@ -24,14 +28,15 @@ public class ParkingSlot {
             availableParkingSlot--;
             parkedCars.add(car);
             return true;
-        } else {
 
+        } else {
             if (parkedCars.contains(car)) {
-                throw new Exception("Car already parked");
+
+                throw new Exception(ERROR_CAR_ALREADY_PARKED);
 
             } else
 
-                throw new Exception("Slot Full");
+                throw new Exception(ERROR_SLOT_FULL);
         }
 
     }

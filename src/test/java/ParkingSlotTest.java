@@ -31,9 +31,9 @@ public class ParkingSlotTest {
         ParkingSlot parkingslot = new ParkingSlot(1);
 
         parkingslot.park(new Car());
-        Throwable throwable = assertThrows(Exception.class, () -> parkingslot.park(new Car()));
 
-        assertEquals("Slot Full", throwable.getMessage());
+        Throwable throwable = assertThrows(Exception.class, () -> parkingslot.park(new Car()));
+        assertEquals(ParkingSlot.ERROR_SLOT_FULL, throwable.getMessage());
     }
 
     @Test
@@ -43,8 +43,8 @@ public class ParkingSlotTest {
 
         Car car = new Car();
         parkingslot.park(car);
-        Throwable throwable = assertThrows(Exception.class, () -> parkingslot.park(car));
 
-        assertEquals("Car already parked", throwable.getMessage());
+        Throwable throwable = assertThrows(Exception.class, () -> parkingslot.park(car));
+        assertEquals(ParkingSlot.ERROR_CAR_ALREADY_PARKED, throwable.getMessage());
     }
 }
